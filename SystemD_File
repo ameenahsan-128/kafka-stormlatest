@@ -1,0 +1,40 @@
+
+sudo nano /etc/systemd/system/kafka.service
+
+[Unit]
+Description=Kafka
+After=network.target
+
+[Service]
+User=ameen
+ExecStart=/bin/bash -c '/home/ameen/apache/kafka_2.13-2.8.1/bin/kafka-server-start.sh /home/ameen/apache/kafka_2.13-2.8.1/config/server.properties'
+ExecStop=/bin/bash -c '/home/ameen/apache/kafka_2.13-2.8.1/bin/kafka-server-stop.sh'
+Restart=on-failure
+RestartSec=10s
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+
+
+
+sudo nano /etc/systemd/system/zookeeper.service
+                                                                                 
+[Unit]
+Description=ZooKeeper
+After=network.target
+
+[Service]
+User=ameen
+ExecStart=/bin/bash -c '/home/ameen/apache/kafka_2.13-2.8.1/bin/zookeeper-server-start.sh /home/ameen/apache/kafka_2.13-2.8.1/config/zookeeper.properties'
+ExecStop=/bin/bash -c '/home/ameen/apache/kafka_2.13-2.8.1/bin/zookeeper-server-stop.sh'
+Restart=on-failure
+RestartSec=10s
+
+[Install]
+WantedBy=multi-user.target
+
+
+
