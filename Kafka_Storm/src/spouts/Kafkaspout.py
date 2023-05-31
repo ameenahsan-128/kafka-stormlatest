@@ -4,6 +4,7 @@ from streamparse import Spout
 from kafka import KafkaConsumer, errors
 import time
 import threading
+import json
 
 class KafkaSpout(Spout):  # Defining a class named KafkaSpout that extends the Spout class
 
@@ -17,15 +18,19 @@ class KafkaSpout(Spout):  # Defining a class named KafkaSpout that extends the S
         # Start the Kafka consumer thread
         kafka_consumer_thread = threading.Thread(target=self.consume_kafka)  # Creating a thread for consuming Kafka messages
         kafka_consumer_thread.start()  # Starting the thread
+        
 
 
     def connect_consumer(self):  # Method to create a Kafka consumer and connect to the Kafka server
         try:
             consumer = KafkaConsumer(
-                'test',  # The topic to consume messages from
-                bootstrap_servers='localhost:9092',  # The Kafka server address
-                group_id='group1',  # The consumer group ID
-                auto_offset_reset='earliest'  # Setting the offset to the earliest available
+                "Test",
+                bootstrap_servers='pkc-ymrq7.us-east-2.aws.confluent.cloud:9092',
+                security_protocol='SASL_SSL',
+                sasl_plain_username='VFEA4YJF3V2RMNJU',
+                sasl_plain_password='g35bTPWvnO0XZvyrDv+ZTXa4kpvlqz7PWzNOsuKQpKIJwD7/mAHRQ8zHAoYcZcUQ',
+                sasl_mechanism='PLAIN',
+                group_id='python-group-1'
             )
             return consumer  # Returning the Kafka consumer object
         except errors.NoBrokersAvailable:

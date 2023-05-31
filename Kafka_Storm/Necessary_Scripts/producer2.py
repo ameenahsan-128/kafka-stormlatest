@@ -24,4 +24,4 @@ while True:
 
     producer.flush()
 
-    
+    time.sleep(20)

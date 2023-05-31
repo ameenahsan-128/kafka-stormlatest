@@ -1,8 +1,19 @@
 import json
 from confluent_kafka import Consumer
-from confluent__kafka import read_ccloud_config
 
-props = read_ccloud_config("client.properties")
+def read_ccloud_config(config_file):
+    conf = {}
+    with open(config_file) as fh:
+        for line in fh:
+            line = line.strip()
+            if len(line) != 0 and line[0] != "#":
+                if "=" in line:
+                    parameter, value = line.strip().split('=', 1)
+                    conf[parameter] = value.strip()
+        return conf
+
+
+props = read_ccloud_config("/home/ameen/kafka-Storm/Kafka_Storm/Necessary_Scripts/client.properties")
 props["group.id"] = "python-group-1"
 props["auto.offset.reset"] = "earliest"
 
